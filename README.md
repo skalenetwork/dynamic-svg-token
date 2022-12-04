@@ -1,24 +1,12 @@
-# Intented Usage 
-This project is intended for the Hackathon ETHSF. You can go here for the details https://hackathon.skale.network/
-If you want to have access to this project outside of the hackathon you can reach out to the Skale team via Discord.
-
 # Project setup
 
 ## Requirements
 Make sure that you are using the node version `v14.17.0`.
 
 ## Clone the skale-demo repository
-To run this example project, execute these commands 
+To run this example project, clone this project 
 ```
-git clone https://github.com/skalenetwork/skale-demo.git
-```
-must checkout the branch name `gaming_token`
-```
-git checkout gaming_token
-```
-and the example is located under `gaming_token` directory
-```
-cd gaming_token
+git clone https://github.com/skalenetwork/gaming-token-svg.git
 ```
 
 ## Install the NPM packages
@@ -42,7 +30,9 @@ npm run createWallet
 ```
 copy the private key from the output to the `.env` file as `PRIVATE_KEY`.
 
-### Get sFUEL in a faucet.
+Also save the `Address` as you will need to send it to us in order to grand you access to contract deployments.
+
+(Please don't send us your private keys)
 
 ## Compile and deploy contract
 To compile the contract run 
@@ -65,8 +55,9 @@ To mint the NFTs run
 ```
 npm run mintTokens
 ```
-Expect this script to take ~30 seconds 
-Once done you can check the block explorer to see the NFTs minted .
+Expect this script to take ~30 seconds.
+Once done you can check the block explorer to see the NFTs minted.
 
-The NFT gaming token attributes are being generated randomly via the `scripts/MintTokens.js` script
+The NFT gaming token SVGs are being generated randomly via the `scripts/MintTokens.js` script.
 
+You can view the minted NFTs and their SVG images by opening `result.html` file in your browser.
