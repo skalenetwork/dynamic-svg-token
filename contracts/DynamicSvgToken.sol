@@ -7,15 +7,13 @@ import '@openzeppelin/contracts/utils/Counters.sol';
 import 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract GamingToken is ERC721URIStorage {
+contract DynamicSvgToken is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenCounter;
 
   string[] palette;
-  string svg;
-  event TokenMinted(address from, uint tokenId, string tokenURI);
 
-  constructor() ERC721('Gaming token', 'GMGT') {
+  constructor() ERC721('Dynamic SVG Token', 'DST') {
     palette.push("blue");
     palette.push("red");
     palette.push("maroon");
@@ -29,20 +27,29 @@ contract GamingToken is ERC721URIStorage {
     palette.push("olive");
   }
 
-  function mint() external returns (uint256) {
+
+  function mint() external {
     _tokenCounter.increment();
 
     uint256 newTokenId = _tokenCounter.current();
-    _mint(msg.sender, newTokenId);
-    string memory tokenURI =  constructTokenURI(newTokenId);
-    _setTokenURI(newTokenId, tokenURI);
 
-    emit TokenMinted(msg.sender, newTokenId, tokenURI );
-    return newTokenId;
+    _mint(msg.sender, newTokenId);
+
+    string memory tokenURI = _constructTokenURI(newTokenId); 
+
+    _setTokenURI(newTokenId, tokenURI);
   }
 
-  function constructTokenURI(uint tokenId) public returns (string memory) {
-    svg = generateSVG(tokenId);
+  function _constructTokenURI(uint256 tokenId) internal view returns (string memory) {
+    string memory svg = _constructSVG(tokenId);
+    
+    string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "', name(),'", "description": "A dynamic SVG", "image_data": "', bytes(svg), '"}'))));
+    
+    return string(abi.encodePacked('data:application/json;base64,', json));
+  }
+
+  function _constructSVG(uint256 tokenId) internal view returns (string memory) {
+    string memory svg = generateSVG(tokenId);
     string memory image = Base64.encode(bytes(svg));
 
     return string(
@@ -79,6 +86,7 @@ contract GamingToken is ERC721URIStorage {
 
     return yo_svg;
   }
+
   function getRandomNumber() public view returns (uint )
     {
         bytes32 res = getRandom();
