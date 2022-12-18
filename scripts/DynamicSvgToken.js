@@ -4,17 +4,17 @@ const { ethers } = require('hardhat');
 const abi = require("../abi/"+process.env.ABI_NAME);
 
 async function mint(nonce) {
-    const GamingToken = await ethers.getContractAt('GamingToken', abi.erc721_address);
+    const DynamicSvgToken = await ethers.getContractAt('DynamicSvgToken', abi.erc721_address);
 
-    const res = GamingToken.mint({ nonce, gasLimit: 255000000 });
+    const res = DynamicSvgToken.mint({ nonce, gasLimit: 255000000 });
     return res;
 }
 
 async function tokenURI(tokenId) {
 
-    const GamingToken = await ethers.getContractAt('GamingToken', abi.erc721_address);
+    const DynamicSvgToken = await ethers.getContractAt('DynamicSvgToken', abi.erc721_address);
 
-    const res = GamingToken.tokenURI(tokenId);
+    const res = DynamicSvgToken.tokenURI(tokenId);
     return res;
 }
 

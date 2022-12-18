@@ -10,11 +10,11 @@ const  { promises } = require("fs");
 const fs = promises;
 
 async function main() {
-  const contractName = "GamingToken";
+  const contractName = "DynamicSvgToken";
   const erc721Factory = await ethers.getContractFactory(contractName);
   const erc721 = await erc721Factory.deploy();
   await erc721.deployTransaction.wait();
-  console.log("ERC721 Token GamingToken was deployed");
+  console.log("ERC721 Token DynamicSvgToken was deployed");
 
   console.log("Address:", erc721.address);
   console.log('Please, add this contract address to .env file as CONTRACT_ADDRESS!')
