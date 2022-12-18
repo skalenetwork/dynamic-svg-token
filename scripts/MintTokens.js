@@ -1,4 +1,4 @@
-const GamingToken = require("./GamingToken");
+const DynamicSvgToken = require("./DynamicSvgToken");
 const fs = require('fs');
 
 const sleep = (ms) => {
@@ -15,7 +15,7 @@ const sleep = (ms) => {
       //Initialize the HTML boilerplate
       let fileContent = '<html><head></head><body>';
       
-      const initialNonce = await GamingToken.getTransactionCount();
+      const initialNonce = await DynamicSvgToken.getTransactionCount();
 
 
       for (let idx = 0; idx < 2; idx++) {
@@ -25,12 +25,12 @@ const sleep = (ms) => {
         }
       
         const nonce = initialNonce + idx;
-        const receipt = GamingToken.mint(nonce);
+        const receipt = DynamicSvgToken.mint(nonce);
         const response = await receipt;
         const details = await response.wait();
         const evt = details.logs[0];
         const tokenId = evt.topics[3];
-        const tokenURI = await GamingToken.tokenURI(tokenId);
+        const tokenURI = await DynamicSvgToken.tokenURI(tokenId);
 
         //Create an image tag
         const image = `<h2>Token Id: ${tokenId}</h2><img src="${tokenURI}" />\n`;

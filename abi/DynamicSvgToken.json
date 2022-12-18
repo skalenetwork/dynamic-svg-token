@@ -51,28 +51,6 @@
     {
         "type": "event",
         "anonymous": false,
-        "name": "TokenMinted",
-        "inputs": [
-            {
-                "type": "address",
-                "name": "from",
-                "indexed": false
-            },
-            {
-                "type": "uint256",
-                "name": "tokenId",
-                "indexed": false
-            },
-            {
-                "type": "string",
-                "name": "tokenURI",
-                "indexed": false
-            }
-        ]
-    },
-    {
-        "type": "event",
-        "anonymous": false,
         "name": "Transfer",
         "inputs": [
             {
@@ -124,24 +102,6 @@
         "outputs": [
             {
                 "type": "uint256",
-                "name": ""
-            }
-        ]
-    },
-    {
-        "type": "function",
-        "name": "constructTokenURI",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-            {
-                "type": "uint256",
-                "name": "tokenId"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "string",
                 "name": ""
             }
         ]
@@ -208,12 +168,7 @@
         "constant": false,
         "payable": false,
         "inputs": [],
-        "outputs": [
-            {
-                "type": "uint256",
-                "name": ""
-            }
-        ]
+        "outputs": []
     },
     {
         "type": "function",

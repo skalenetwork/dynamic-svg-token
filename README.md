@@ -20,7 +20,7 @@ which contains
 ENDPOINT=http://exampleendpoint
 PRIVATE_KEY=exampleprivatekey
 CONTRACT_ADDRESS=examplecontractaddress
-ABI_NAME=GamingToken-WithAddress.json
+ABI_NAME=DynamicSvgToken-WithAddress.json
 ```
 
 ## Creating the private key
@@ -45,7 +45,7 @@ npm run deploy
 ```
 After running this command you will see an output like this example
 ```
-ERC721 Token GamingToken was deployed
+ERC721 Token DynamicSvgToken was deployed
 Address: 0x5bBf089e42af7711cbF299BcE945B6A0801c864f
 ```
 Replace the `CONTRACT_ADDRESS` in the .env with the address from the output of the command
@@ -58,6 +58,6 @@ npm run mintTokens
 Expect this script to take ~30 seconds.
 Once done you can check the block explorer to see the NFTs minted.
 
-The NFT gaming token SVGs are being generated randomly via the `scripts/MintTokens.js` script.
+The NFT token SVGs are being generated randomly via the `scripts/MintTokens.js` script.
 
 You can view the minted NFTs and their SVG images by opening `result.html` file in your browser.
