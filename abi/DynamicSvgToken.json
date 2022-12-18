@@ -2,7 +2,16 @@
     {
         "type": "constructor",
         "payable": false,
-        "inputs": []
+        "inputs": [
+            {
+                "type": "address",
+                "name": "_fileStorageAddress"
+            },
+            {
+                "type": "string",
+                "name": "_fileStoragePrefix"
+            }
+        ]
     },
     {
         "type": "event",

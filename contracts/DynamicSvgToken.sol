@@ -7,13 +7,25 @@ import '@openzeppelin/contracts/utils/Counters.sol';
 import 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+interface FileStorage {
+    function startUpload(string calldata filePath, uint256 fileSize) external;
+    function uploadChunk(string calldata filePath, uint position, bytes calldata data) external;
+    function finishUpload(string calldata filePath) external;
+}
+
 contract DynamicSvgToken is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenCounter;
 
   string[] palette;
 
-  constructor() ERC721('Dynamic SVG Token', 'DST') {
+  FileStorage fileStorage;
+  string fileStoragePrefix;
+
+  constructor(address _fileStorageAddress, string memory _fileStoragePrefix) ERC721('Dynamic SVG Token', 'DST') {
+    fileStorage = FileStorage(_fileStorageAddress);
+    fileStoragePrefix = _fileStoragePrefix;
+
     palette.push("blue");
     palette.push("red");
     palette.push("maroon");
@@ -35,9 +47,27 @@ contract DynamicSvgToken is ERC721URIStorage {
 
     _mint(msg.sender, newTokenId);
 
-    string memory tokenURI = _constructTokenURI(newTokenId); 
+    string memory tokenData = _constructTokenURI(newTokenId); 
+    string memory tokenURI = _constructTokenURL(newTokenId, bytes(tokenData));
 
     _setTokenURI(newTokenId, tokenURI);
+  }
+
+  function _constructTokenURL(uint256 _tokenId, bytes memory _tokenData) internal returns(string memory) {
+    string memory tokenId = string(abi.encodePacked(bytes32(_tokenId)));
+    // 1. Start upload
+    fileStorage.startUpload(tokenId, _tokenData.length);
+    // 2. Upload chunk
+    fileStorage.uploadChunk(tokenId, 0, _tokenData);
+    // 3. Finish the upload 
+    fileStorage.finishUpload(tokenId);
+
+    return string(abi.encodePacked(
+      fileStoragePrefix,
+      abi.encodePacked(address(msg.sender)),
+      "/",
+      tokenId
+    ));
   }
 
   function _constructTokenURI(uint256 tokenId) internal view returns (string memory) {

@@ -8,11 +8,13 @@ const { ethers, hre } = require("hardhat");
 const { getAbi } = require('../tools/abi');
 const  { promises } = require("fs");
 const fs = promises;
+const FILE_STORAGE_ADDRESS = process.env.FILE_STORAGE_ADDRESS;
+const FILE_STORAGE_PREFIX = process.env.FILE_STORAGE_PREFIX;
 
 async function main() {
   const contractName = "DynamicSvgToken";
   const erc721Factory = await ethers.getContractFactory(contractName);
-  const erc721 = await erc721Factory.deploy();
+  const erc721 = await erc721Factory.deploy(FILE_STORAGE_ADDRESS, FILE_STORAGE_PREFIX,);
   await erc721.deployTransaction.wait();
   console.log("ERC721 Token DynamicSvgToken was deployed");
 
@@ -21,7 +23,8 @@ async function main() {
   const jsonObj = {};
   jsonObj.erc721_address = erc721.address;
   jsonObj.erc721_abi = getAbi(erc721.interface);
-  await fs.writeFile("abi/" + contractName + "-WithAddress.json", JSON.stringify(jsonObj, null, 4));
+
+  await fs.writeFile(process.env.ABI_NAME, JSON.stringify(jsonObj, null, 4));
   await fs.writeFile("abi/" + contractName + ".json", JSON.stringify(jsonObj.erc721_abi, null, 4));
 }
 

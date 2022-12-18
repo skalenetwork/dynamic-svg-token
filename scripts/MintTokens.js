@@ -41,12 +41,12 @@ const sleep = (ms) => {
       console.log("100 txs sent to the SKALE chain!");
       console.log("Let's go to block explorer to see them");
       //Append the </body> and </html> tags
-      fileContent += '</body></html>';
+      // fileContent += '</body></html>';
       
-      //Write file contents to the file
-      fs.writeFile('result.html', fileContent, (err) => { if (err) throw err; })
+      // //Write file contents to the file
+      // fs.writeFile('result.html', fileContent, (err) => { if (err) throw err; })
       
-      console.log('The resulting SVGs are to be viewed in `result.html`');
+      // console.log('The resulting SVGs are to be viewed in `result.html`');
     } catch (err) {
       console.log("Looks like something went wrong!", err);
     }
